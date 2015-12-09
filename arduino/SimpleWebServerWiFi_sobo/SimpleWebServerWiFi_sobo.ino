@@ -32,7 +32,7 @@ char ssid[] = "cs_lab_sobo";      //  your network SSID (name)
 char pass[] = "8088int8086el";   // your network password
 int keyIndex = 0;                 // your network key Index number (needed only for WEP)
 
-const int pinLed    = 7;  //7番に変更したよ
+const int pinLed    = 7;  //7番に変更
 
 int status = WL_IDLE_STATUS;
 WiFiServer server(80);

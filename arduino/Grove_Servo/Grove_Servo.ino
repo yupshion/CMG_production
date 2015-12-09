@@ -1,9 +1,9 @@
 //
-//  3番ピンにサーボを接続して、アナログ角度操作器でサーボを動かすコードです
+//  デジタル3番ピンにサーボを接続して、アナログ角度操作器でサーボを動かすコードです
 //
 
 // Demo of Grove - Starter Kit V2.0
-￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥［［［［［［／／／／／／／／／／［
+//￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥￥［［［［［［／／／／／／／／／／［
 // Uses the Grove - Rotary Angle Sensor to control the position of the Grove - Servo.
 // Connect the Grove - Servo to the socket marked D3
 // Connect the Grove - Rotary Angle Sensor to A0
