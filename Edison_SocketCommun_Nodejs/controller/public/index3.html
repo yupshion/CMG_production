@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>CONTROLLER</title>
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+        <link rel="stylesheet" href="style2.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <script src="/socket.io/socket.io.js"></script>
+        <!--<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>-->
+        <script>
+            var socket = io.connect(location.host);
+            function STOP(){
+              //  socket.emit('message', '0');
+		            socket.emit('message', '0')
+            }
+            function GO(){
+             //   socket.emit('message', '1');
+                socket.emit('message', '1');
+	          }
+            function BACK(){
+ 		           socket.emit('message', '2');
+	          }
+	          function BRAKE(){
+  		          socket.emit('message', '3');
+	          }
+            function RIGHT(){
+  		          socket.emit('message', '4');
+                  
+	          }
+            function LEFT(){
+                socket.emit('message', '5');
+                
+            }
+
+        </script>
+    </head>
+    <body>
+        <div class="jumbotron">
+        <div class="container">
+            <!--<h1>LED SWITCH</h1>
+            <p>Make It with Edison!</p>
+            <h2>Control Moter</h2>-->
+            <p>
+            <button type="button" id="go" class="btn" value="GO" onClick="GO(2)"><i class="fa fa-arrow-circle-up fa-5x"></i></button>
+            </p>
+            
+            <!--<h2>Control Handle</h2>-->
+            <P>
+            <!--<input type="button" class="btn btn-info btn-lg" value="RIGHT" onMouseDown="RIGHT(1)" onMouseUp="RIGHT(0)">-->
+            <button type="button" id="l" class="btn" value="LEFT" onClick="LEFT(6)"><i class="fa fa-arrow-circle-left fa-5x"></i></button>
+            <button type="button" id="brake" class="btn" value="BRAKE" onClick="BRAKE(4)"><i class="fa fa-pause-circle fa-5x"></i></button>
+            <button type="button" id="r" class="btn" value="RIGHT" onClick="RIGHT(5)"><i class="fa fa-arrow-circle-right fa-5x"></i></button>
+            </P>
+            <p>
+            <button type="button" id="back" class="btn" value="BACK" onClick="BACK(3)"><i class="fa fa-arrow-circle-down fa-5x"></i></button>
+            <button type="button" id="stop" class="btn" value="STOP" onClick="STOP(1)"><i class="fa fa-stop-circle fa-5x"></i></button>
+            </p>
+
+        </div>
+        </div>
+        <!--<script>
+            $(".btn").on("touchstart", function() {
+                $(this).addClass("touch");
+            });
+            $(".btn").on("touchend", function() {
+                $(this).removeClass("touch");
+            });
+        </script>-->
+    </body>
+</html>
