@@ -1,0 +1,92 @@
+body, html {
+	margin: 10%;
+}
+
+div {
+	text-align: center;
+	width: 100%;
+	height: 100%;
+}
+.btn {
+	margin: 0 .3em;
+	display: inline-block;
+	padding: .36em .72em;
+	font-size: .84em;
+	font-weight: normal;
+	line-height: 1.42857143;
+	text-align: center;
+	color: #fff;
+	border: none;
+	border-radius: .3em;
+	transition: .2s;
+}
+.btn:hover {
+	cursor: pointer;
+}
+#go {
+	background: linear-gradient(#666, #111);
+	margin: 0 13.8em 0 7.05em;
+}
+#go:active {
+	background: linear-gradient(#444, #111);
+}
+#back {
+	background: -webkit-gradient(linear, left bottom, left top, from(#666), to(#111));
+	margin: 0 7.05em;
+}
+#back:active {
+	background: -webkit-gradient(linear, left bottom, left top, from(#444), to(#111));
+}
+#r {
+	background: -webkit-gradient(linear, right top, left top, from(#666), to(#111));
+	margin: 0 7.05em 0 .3em;
+}
+#r:active {
+	background: -webkit-gradient(linear, right top, left top, from(#444), to(#111));
+}
+#l {
+	background: -webkit-gradient(linear, left top, right top, from(#666), to(#111));
+}
+#l:active {
+	background: -webkit-gradient(linear, left top, right top, from(#444), to(#111));
+}
+#brake,
+#stop {
+	background: linear-gradient(#666, #333);
+}
+#brake:active,
+#stop:active {
+	background: linear-gradient(#544, #211);
+}
+/*.btn:active {
+	background: linear-gradient(#444, #111);
+}
+.touch {
+	background: linear-gradient(#f00, #111);
+}*/
+
+#stop {
+	margin: 0 .3em;
+	padding: .36em .72em;
+}
+
+@media screen and (max-height: 760px) and (orientation: landscape) {
+	body, html {
+		margin: 0;
+	}
+	div {
+		text-align: center;
+		width: 80%;
+		height: 100%;
+	}
+}
+@media screen and (max-width: 760px) and (orientation: portrait) {
+	body, html {
+		margin: 0;
+	}
+	div {
+		text-align: center;
+		width: 100%;
+		height: 80%;
+	}
+}
