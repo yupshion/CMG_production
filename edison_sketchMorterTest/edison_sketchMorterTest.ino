@@ -1,17 +1,18 @@
-//
-//  socket.ioからの信号で、モーター制御を行う
-//  0→停止、1→前進、2→後退（3→ブレーキ？）となっています
-//  app.jsのあるEdisonに書き込んでください。
-//
-
 #include <WiFi.h>
+#include <Servo.h>
 
 WiFiServer server(3000);
+//char c = '0';
 char c = '0';
 
-//const int pinLed    = 7;  //7番に変更
+// Use a Servo object to represent and control the servo.
+Servo groveServo;
+
+
+//const int pinLed    = 7;  //7番に変更したよ
 const int motorA = 3;
 const int motorB = 4;
+int angle = 90;
 
 void setup() {
   
@@ -25,6 +26,8 @@ void setup() {
   IPAddress myAddress(127,0,0,1);
   //IPAddress myAddress(192,168,11,24);
   Serial.println(myAddress);
+
+  //groveServo.attach(pinServo);
   
 }
 
@@ -60,8 +63,22 @@ void loop() {
            digitalWrite(motorA,HIGH);
            digitalWrite(motorB,HIGH);
         }
+        //左右の動作制御
+        if (c == '4') {
+          // Use the Servo object to move the servo.
+          if(angle < 179)
+            angle++;
+          groveServo.write(angle);
+
+        }
+        if (c == '5') {
+          // Use the Servo object to move the servo.
+          if(angle > 0)
+            angle--;
+          groveServo.write(angle);
+        }
     }
-    
+  
   Serial.println(c);
   delay(10);
     
