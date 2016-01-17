@@ -25,16 +25,18 @@
 	          }
             function RIGHT(){
   		          socket.emit('message', '4');
-                  
+
 	          }
             function LEFT(){
                 socket.emit('message', '5');
-                
+
             }
 
         </script>
     </head>
     <body>
+      <h1>コントローラ(押すとON/OFFを切り替え)</h1>
+      <p>押しっぱなしverは<a href="index.html">ここ</a></p>
         <div class="jumbotron">
         <div class="container">
             <!--<h1>LED SWITCH</h1>
@@ -43,7 +45,7 @@
             <p>
             <button type="button" id="go" class="btn" value="GO" onClick="GO(2)"><i class="fa fa-arrow-circle-up fa-5x"></i></button>
             </p>
-            
+
             <!--<h2>Control Handle</h2>-->
             <P>
             <!--<input type="button" class="btn btn-info btn-lg" value="RIGHT" onMouseDown="RIGHT(1)" onMouseUp="RIGHT(0)">-->
