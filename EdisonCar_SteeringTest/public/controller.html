@@ -1,0 +1,100 @@
+<html>
+	<head>
+		<title>CONTROLLER</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+		<link rel="stylesheet" href="style3.css">
+		<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">-->
+		<script src="/socket.io/socket.io.js"></script>
+		<script language="JavaScript">
+
+		/* 
+			遅いわゴミクオリティだわで本当に申し訳ないです
+			dragImgの中身、適宜console.logを値を送るコードに置換してくださいごめんなさい(if文細分化してますけどまとめた方が良かったですかすみません)
+			モバイル端末用はこれからjquery
+			デザインどうしたらいいですか
+		*/
+			//var socket = io.connect(location.host);
+			r0 = 40; //key radius
+			r1 = 80; //gear1
+			r2 = 120; //gear2
+			r3 = 160; //gear3
+			r = 200; //max radius
+
+			flag = false;
+			window.document.onmousemove = dragImg;
+			window.document.onmouseup = dragOff;
+			function dragOn(n) {
+				flag = true;
+				imgName = n;
+			}
+			function dragOff() {
+				flag = false;
+				document.images[imgName].style.top = r-r0;
+				document.images[imgName].style.left = r-r0;
+			}
+			function dragImg() {
+				x = event.x-r;
+				y = event.y-r;
+				theta0 = -Math.atan2(y,x); //radian
+				theta = theta0 / Math.PI * 180; //degree
+				x2 = x * x;
+				y2 = y * y;
+				d = Math.sqrt(x2+y2);
+				if(!flag) return;
+
+				//画像移動
+				if(event.y >= r0 && event.y <= 400-r0 && x2 + y2 <= r*r) {
+					document.images[imgName].style.top = event.y - r0;
+				}
+				if(event.x >= r0 && event.x <= 400-r0 && x2 + y2 <= r*r) {
+					document.images[imgName].style.left = event.x - r0;
+				}
+
+				//距離
+				if(d >= r2) {
+					console.log("gear3");
+				} else if(d >= r1) {
+					console.log("gear2");
+				} else if(d >= r0) {
+					console.log("gear1");
+				} else {
+					console.log("gear0");
+				}
+
+				//前進・後退
+				if(theta == 0 || theta == -180){
+					console.log("error");
+				} else if(theta > 0) {
+					console.log("forward");
+				} else {
+					console.log("back");
+				}
+
+				//傾き
+				if((theta >= 0 && theta < 90) || theta <= -90) {
+					console.log("right"); //右回り
+					if(theta >= 60 || theta >= -120) {
+						console.log(Math.abs(Math.abs(theta)-90));
+					} else {
+						console.log(30);
+					}
+				} else {
+					console.log("left"); //左回り
+					if(theta <= 120 || theta >= 60) {
+						console.log(Math.abs(Math.abs(theta)-90));
+					} else {
+						console.log(30);
+					}
+				}
+			
+				return false;
+			}
+		</script>
+	</head>
+	<body bgcolor="#ffffff">
+		<img src="img/area.png" class="area" width="320" height ="320" alt="最速">
+		<img src="img/circle.png" class="circle" width="80" height="80" name="circle" style="position:absolute" onMousedown="dragOn('circle')" alt="コントローラー">
+	</body>
+
+</html>

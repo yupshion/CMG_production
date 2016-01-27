@@ -12,6 +12,7 @@ Servo groveServo;
 //const int pinLed    = 7;  //7番に変更したよ
 const int motorA = 3;
 const int motorB = 4;
+const int pinServo = 5;
 int angle = 90;
 
 void setup() {
@@ -20,14 +21,14 @@ void setup() {
 //  pinMode(pinLed,OUTPUT);
   pinMode(motorA,OUTPUT); //信号用ピン
   pinMode(motorB,OUTPUT); //信号用ピン
+  groveServo.attach(pinServo);
     
   server.begin();
   Serial.print("Connected to TCP. My address:");
   IPAddress myAddress(127,0,0,1);
   //IPAddress myAddress(192,168,11,24);
   Serial.println(myAddress);
-
-  //groveServo.attach(pinServo);
+  groveServo.write(120);
   
 }
 
@@ -45,6 +46,8 @@ void loop() {
            //STOP
            digitalWrite(motorA,LOW);
            digitalWrite(motorB,LOW);
+           groveServo.write(9
+           0);
         } 
         //if (c == '1') 
         if (c == '1') {
@@ -52,6 +55,7 @@ void loop() {
            //GO
            digitalWrite(motorA,HIGH);
            digitalWrite(motorB,LOW);
+           
         }
         if (c == '2') {
           //BACK
@@ -62,20 +66,23 @@ void loop() {
            //BRAKE
            digitalWrite(motorA,HIGH);
            digitalWrite(motorB,HIGH);
+           groveServo.write(90);
         }
         //左右の動作制御
         if (c == '4') {
           // Use the Servo object to move the servo.
-          if(angle < 179)
-            angle++;
-          groveServo.write(angle);
+          //if(angle < 150)
+          //  angle += 30;
+          groveServo.write(30);
+          delay(500);
 
         }
         if (c == '5') {
           // Use the Servo object to move the servo.
-          if(angle > 0)
-            angle--;
-          groveServo.write(angle);
+          //if(angle > 30)
+          //  angle -= 30;
+          groveServo.write(140);
+          delay(500);
         }
     }
   
