@@ -5,8 +5,8 @@
 		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
 		<link rel="stylesheet" href="style3.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-		<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">-->
-		<script src="/socket.io/socket.io.js"></script>
+		<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+		<script src="/socket.io/socket.io.js"></script>-->
 		<!--<script language="JavaScript">
 
 		/* 
@@ -100,35 +100,28 @@
 		<img src="img/circle.png" class="circle" id="circle" width="80" height="80" name="img1" style="position:absolute" onMousedown="dragOn('img1')" alt="コントローラー">
 		<button type="button" class="start" class="btn" value="START" onClick="start()">START</button>-->
 		コントローラ案<BR>
-		<IMG src="img/hani2.png" class="hani" name="img2" width="410" height="410" style="position:absolute">
-		<IMG src="img/cont_img2.png" class="cont" id="cont" name="img1" width="90" height="90" style="position:absolute" onMousedown="dragOn('img1')">
+		<IMG src="img/hani.png" class="hani" name="img2" style="position:absolute">
+		<IMG src="img/cont_img.png" class="cont" id="cont" name="img1" style="position:absolute" width="90" height="90" onMousedown="dragOn('img1')">
 		<SCRIPT language="JavaScript">
 			<!--
-			x = 45; // マウスと画像の縦方向の距離
-			y = 45; // マウスと画像の横方向の距離
-			w = Math.round(window.innerWidth/2); //ウィンドウ幅/2
-			h = Math.round(window.innerHeight/2); //ウィンドウ高さ/2
-			r1 = 45; //cont半径
-			r2 = 205; //hani半径==img.width(height)/2
-			r3 = r2 - r1;
+			x = 34; // マウスと画像の縦方向の距離
+			y = 10; // マウスと画像の横方向の距離
 			flag = false;
 			window.document.onmousemove = dragImg;
 			window.document.onmouseup = dragOff;
 			var img = new Image();
-			img.src = "img/hani2.png";
+			img.src = "img/hani.png";
 			img.onload = function (){
-				//document.images['img1'].style.top = Math.round(img.height / 2) - y;
-				//document.images['img1'].style.left = Math.round(img.width / 2) - x;
-				document.images['img2'].style.top = h - r2;
-				document.images['img2'].style.left = w - r2;
-				document.images['img1'].style.top = h - r1;
-			  	document.images['img1'].style.left = w - r1;
+				document.images['img1'].style.top = Math.round(img.height / 2) - y;
+				document.images['img1'].style.left = Math.round(img.width / 2) - x;
+				//document.images['img1'].style.top = window.innerHeight/2 - 184;
+			  	//document.images['img1'].style.left = 174 + window.innerWidth/2 - 220;
 			}
-			console.log(w*2);
-			console.log(h*2);
-			console.log(img.width);
-			console.log(img.height);
-			var socket = io.connect(location.origin);
+			//console.log(window.innerWidth);
+			//console.log(window.innerHeight);
+			//console.log(img.width);
+			//console.log(img.height);
+			//var socket = io.connect(location.origin);
 
 			function dragOn(n) {
 			  flag = true; 
@@ -136,46 +129,39 @@
 			}
 			function dragOff() {
 			  flag = false; 
-			  //document.images[imgName].style.top = Math.round(img.height / 2) - y;
-			  //document.images[imgName].style.left = Math.round(img.width / 2) - x;
-			  document.images[imgName].style.top = h - r1;
-			  document.images[imgName].style.left = w - r1;
+			  document.images[imgName].style.top = Math.round(img.height / 2) - y;
+			  document.images[imgName].style.left = Math.round(img.width / 2) - x;
+			  //document.images[imgName].style.top = window.innerHeight/2 - 184;
+			  //document.images[imgName].style.left = 174 + window.innerWidth/2 - 220;
 			  //console.log(document.images[imgName].style.top);
 			  //console.log(document.images[imgName].style.left);
 			}
 			function dragImg() {
 			  if(!flag) return;
-			  var sita = Math.atan2(event.y - h, event.x - w);
-			  var r = Math.pow(event.x - w,2)+ Math.pow(event.y - h,2); //中心から座標の距離^2
+			  var sita = Math.atan2(event.y - Math.round(img.height / 2) + y, event.x - Math.round(img.width / 2) + x);
+			  var r = Math.pow(event.x - Math.round(img.width / 2),2)+ Math.pow(event.y - Math.round(img.height / 2),2);
 			  if (sita > 0) mFlag = -1;
 			  else mFlag = 1;
-			  if (event.y < h+r2 && event.y > h-r2 && event.x > w-r2 && event.x < w+r2 && r <25600){
+			  if (event.y < 400 && event.y > 84 && event.x > 67 && event.x < 366 && r <18000){
 				document.images[imgName].style.top = event.y - y;
 				document.images[imgName].style.left = event.x - x;
-				console.log("x="+ (event.x-x));
-				console.log("y="+ (event.y-y)); 	
+				//console.log("x="+ (event.x-x));
+				//console.log("y="+ (event.y-y)); 	
 			  }
 			  else{
 			  	
-			  	console.log(sita/Math.PI*180);
-			  	console.log("sin="+Math.sin(sita)*160);
-			  	console.log("cos="+Math.cos(sita)*160);
+			  	console.log(sita);
 			  	//console.log("x="+ (event.x-x));
 				//console.log("y="+ (event.y-y)); 
-			  	document.images[imgName].style.top = Math.sin(sita)*160 - y + h;
-				document.images[imgName].style.left = Math.cos(sita)*160 - x + w;
+			  	document.images[imgName].style.top = Math.round(img.height / 2) + Math.sin(sita)*160 - y - 10;
+				document.images[imgName].style.left = Math.round(img.width / 2) + Math.cos(sita)*160 - x - 10;
 			  }
-			  socket.emit("data", {sita: sita, r : r, mFlag: mFlag});
+			  //socket.emit("data", {sita: sita, r : r, mFlag: mFlag});
 			  return false;
 			}
 			//-->
 		</SCRIPT>
 		<script>
-			var x = 45; // マウスと画像の縦方向の距離
-			var y = 45; // マウスと画像の横方向の距離
-			var r1 = 45; //cont半径
-			var r2 = 205; //hani半径==img.width(height)/2
-			var r3 = r2 - r1;
 			$("#cont").on("touchstart", function(e) {
 				e.preventDefault();
 				console.log("aaa");
