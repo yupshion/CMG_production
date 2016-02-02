@@ -20,8 +20,8 @@ void setup() {
   
   Serial.begin(9600);
 //  pinMode(pinLed,OUTPUT);
-  pinMode(motorA,OUTPUT); //信号用ピン
-  pinMode(motorB,OUTPUT); //信号用ピン
+//  pinMode(motorA,OUTPUT); //信号用ピン
+//  pinMode(motorB,OUTPUT); //信号用ピン
   
   //サーボのピン設定
   groveServo.attach(pinServo);
