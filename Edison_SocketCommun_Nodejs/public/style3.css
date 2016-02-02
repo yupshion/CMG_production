@@ -10,3 +10,26 @@ body, html {
 	position: absolute;
 	top: 50%;
 }
+
+@media screen and (max-height: 500px) and (orientation: landscape) {
+	body, html {
+		
+	}
+	.hani {
+
+	}
+	.cont {
+
+	}
+}
+@media screen and (max-width: 500px) and (orientation: portrait) {
+	body, html {
+		
+	}
+	.hani {
+
+	}
+	.cont {
+		
+	}
+}
