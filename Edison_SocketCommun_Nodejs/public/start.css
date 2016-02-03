@@ -1,0 +1,21 @@
+html {
+	background-image: url("img/bg.png");
+	text-align: center;
+	height: 100%;
+}
+
+#logo {
+	background-color: rgba(51,51,85,0.8);
+}
+#disp {
+	float: right;
+	padding-right: 10%;
+}
+.logo, .how, .start {
+	width: 80%;
+	margin-top: 1em;
+}
+#disp {
+	color: #fff;
+	font-size: 2.5em;
+}

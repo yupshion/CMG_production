@@ -46,8 +46,7 @@ void loop() {
            //STOP
            digitalWrite(motorA,LOW);
            digitalWrite(motorB,LOW);
-           groveServo.write(9
-           0);
+           groveServo.write(90);
         } 
         //if (c == '1') 
         if (c == '1') {

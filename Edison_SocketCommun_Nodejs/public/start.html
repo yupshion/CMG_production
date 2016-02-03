@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+		<link rel="stylesheet" href="start.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+		<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">-->
+		<script src="/socket.io/socket.io.js"></script>
+		<title>Edicon</title>
+	</head>
+	<body>
+		<div id="logo">
+			<img class="logo" src="img/logo.png" alt="Ediconエジコン">
+			<br>
+			<img class="edisonnumber" src="img/Edicon_number.png" alt="Edisonnumber: ">
+			<div id="disp"></div>
+		</div>
+		<img class="how" src="img/howto_play.png" alt="How to Play">
+		<a href="controller.html"><img class="start" src="img/start.png" alt="start"></a>
+		<div id="bottom">
+			<a href="config.html"><img src="img/config.png" alt="config"></a>
+			<div id="trial">
+				<img src="img/otameshi.png" alt="control_trial">
+				<br>
+				<img src="img/line.png" alt="line">
+				<img src="img/cont_img2.png" alt="control">
+			</div>
+		</div>
+		<!-- シリアルナンバー表示 -->
+		<script>
+			var xmlHttp;
+
+			if (window.XMLHttpRequest){
+			    xmlHttp = new XMLHttpRequest();
+			} else {
+			    if (window.ActiveXObject){
+			    	xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+			    } else {
+			    	xmlHttp = null;
+			    }
+			}
+			xmlHttp.onreadystatechange = checkStatus;
+			//xmlHttp.open("GET", "sn", true);
+			xmlHttp.open("GET", "serial_number", true); //2番目の引数が、シリアルナンバーが書いてあるファイル()
+
+			xmlHttp.send(null);
+
+			function checkStatus(){
+				if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
+			    	var node = document.getElementById("disp");
+			    	node.innerHTML = xmlHttp.responseText;
+			  	}
+			}
+		</script>
+	</body>
+</html>
