@@ -45,7 +45,7 @@
 			//console.log(h*2);
 			//console.log(img.width);
 			//console.log(img.height);
-			var socket = io.connect(location.origin);
+			//var socket = io.connect(location.origin);
 
 			function dragOn(n) {
 			  flag = true; 
@@ -82,7 +82,7 @@
 			  	document.images[imgName].style.top = Math.sin(sita)*r3 - y + h + h2;
 				document.images[imgName].style.left = Math.cos(sita)*r3 - x + w;
 			  }
-			  socket.emit("data", {sita: sita, r : r, mFlag: mFlag});
+			  //socket.emit("data", {sita: sita, r : r, mFlag: mFlag});
 			  return false;
 			}
 			//-->
