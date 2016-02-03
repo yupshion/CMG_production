@@ -13,8 +13,8 @@
 		<img src="img/circle.png" class="circle" id="circle" width="80" height="80" name="img1" style="position:absolute" onMousedown="dragOn('img1')" alt="コントローラー">
 		<button type="button" class="start" class="btn" value="START" onClick="start()">START</button>-->
 		コントローラ案<BR>
-		<IMG src="img/circle1.png" class="hani" name="img2" width="410" height="410" style="position:absolute">
-		<IMG src="img/cont_img3.png" class="cont" id="cont" name="img1" width="90" height="90" style="position:absolute" onMousedown="dragOn('img1')">
+		<IMG src="img_0/hani2.png" class="hani" name="img2" width="410" height="410" style="position:absolute">
+		<IMG src="img_0/cont_img2.png" class="cont" id="cont" name="img1" width="90" height="90" style="position:absolute" onMousedown="dragOn('img1')">
 		<div id="disp"></div>
 		<SCRIPT language="JavaScript">
 			<!--
@@ -29,7 +29,7 @@
 			window.document.onmousemove = dragImg;
 			window.document.onmouseup = dragOff;
 			var img = new Image();
-			img.src = "img/circle1.png";
+			img.src = "img/hani2.png";
 			img.onload = function (){
 				//document.images['img1'].style.top = Math.round(img.height / 2) - y;
 				//document.images['img1'].style.left = Math.round(img.width / 2) - x;
@@ -45,11 +45,11 @@
 			//var socket = io.connect(location.origin);
 
 			function dragOn(n) {
-			  flag = true;
+			  flag = true; 
 			  imgName = n;
 			}
 			function dragOff() {
-			  flag = false;
+			  flag = false; 
 			  //document.images[imgName].style.top = Math.round(img.height / 2) - y;
 			  //document.images[imgName].style.left = Math.round(img.width / 2) - x;
 			  document.images[imgName].style.top = h - r1;
@@ -67,15 +67,15 @@
 				document.images[imgName].style.top = event.y - y;
 				document.images[imgName].style.left = event.x - x;
 				//console.log("x="+ (event.x-x));
-				//console.log("y="+ (event.y-y));
+				//console.log("y="+ (event.y-y)); 	
 			  }
 			  else{
-
+			  	
 			  	//console.log(sita/Math.PI*180);
 			  	//console.log("sin="+Math.sin(sita)*160);
 			  	//console.log("cos="+Math.cos(sita)*160);
 			  	//console.log("x="+ (event.x-x));
-				//console.log("y="+ (event.y-y));
+				//console.log("y="+ (event.y-y)); 
 			  	document.images[imgName].style.top = Math.sin(sita)*160 - y + h;
 				document.images[imgName].style.left = Math.cos(sita)*160 - x + w;
 			  }
@@ -99,7 +99,8 @@
 			    }
 			}
 			xmlHttp.onreadystatechange = checkStatus;
-			xmlHttp.open("GET", "../../serial_number.txt", true); //2番目の引数が、シリアルナンバーが書いてあるファイル()
+			xmlHttp.open("GET", "sn", true);
+			//xmlHttp.open("GET", "/factory/serial_number", true); //2番目の引数が、シリアルナンバーが書いてあるファイル()
 
 			xmlHttp.send(null);
 

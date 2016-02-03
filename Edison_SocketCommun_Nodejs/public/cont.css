@@ -1,0 +1,59 @@
+body, html {
+	margin: 0;
+	padding: 0;
+	background-image: url("img/bg.png");
+}
+#camera {
+	height: 40%;
+	text-align: center;
+}
+.tostart {
+	height: 10%;
+}
+.toconfig {
+	height: 10%;
+	float: right;
+}
+.hani {
+	position: absolute;
+}
+.cont {
+	position: absolute;
+}
+.start {
+	position: absolute;
+	top: 50%;
+}
+
+@media screen and (max-height: 500px) and (orientation: landscape) {
+	body, html {
+		
+	}
+
+	.hani {
+
+	}
+	.cont {
+
+	}
+}
+@media screen and (max-width: 500px) {
+	body, html {
+		
+	}
+	.tostart {
+		height: 10%;
+		width: 50%;
+	}
+	.toconfig {
+		height: 10%;
+		width: 45%;
+		float: right;
+	}
+	.hani {
+
+	}
+	.cont {
+		
+	}
+}
