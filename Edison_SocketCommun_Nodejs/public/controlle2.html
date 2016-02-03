@@ -5,8 +5,8 @@
 		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
 		<link rel="stylesheet" href="cont.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-		<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-		<script src="/socket.io/socket.io.js"></script>-->
+		<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">-->
+		<script src="/socket.io/socket.io.js"></script>
 	</head>
 	<body bgcolor="#55a">
 		<div id="camera">カメラ画面?</div>
@@ -45,7 +45,7 @@
 			//console.log(h*2);
 			//console.log(img.width);
 			//console.log(img.height);
-			//var socket = io.connect(location.origin);
+			var socket = io.connect(location.origin);
 
 			function dragOn(n) {
 			  flag = true; 
@@ -82,7 +82,7 @@
 			  	document.images[imgName].style.top = Math.sin(sita)*r3 - y + h + h2;
 				document.images[imgName].style.left = Math.cos(sita)*r3 - x + w;
 			  }
-			  //socket.emit("data", {sita: sita, r : r, mFlag: mFlag});
+			  socket.emit("data", {sita: sita, r : r, mFlag: mFlag});
 			  return false;
 			}
 			//-->
