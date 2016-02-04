@@ -9,7 +9,7 @@
 		<script src="/socket.io/socket.io.js"></script>
 	</head>
 	<body bgcolor="#55a">
-		<div id="camera">カメラ�    <canvas id="canvas-video" width="640" height="480"></canvas>�面?</div>
+		<div id="camera">カメラ画面<canvas id="canvas-video" width="640" height="480"></canvas></div>
 		<div id="to">
 			<a href="start.html"><img class="tostart" src="img/to_title.png" alt="title"></a>
 			<a href="config.html"><img class="toconfig" src="img/to_config.png" alt="config"></a>
@@ -23,13 +23,8 @@
 
 
 
-
-
-
-
-
-
-	<script src="/jsmpg.js"></script>
+ <!-- edi-camで挙動しているffmpegから映像を読み込むためのスクリプト ---------->
+	 <script src="/jsmpg.js"></script>
  	 <script type="text/javascript">
 	    // CHANGE THIS TO THE APPROPRIATE WS ADDRESS
   	  var wsUrl = 'ws://192.168.11.24:8084/';
@@ -43,8 +38,12 @@
 	    // Start the player
 	    var client = new WebSocket(wsUrl);
 	    var player = new jsmpeg(client, { canvas:canvas });
-	  </script>
-	
+	</script>
+
+
+
+
+
 
 	<SCRIPT language="JavaScript">
 			<!--
@@ -76,11 +75,11 @@
 			var socket = io.connect(location.origin);
 
 			function dragOn(n) {
-			  flag = true; 
+			  flag = true;
 			  imgName = n;
 			}
 			function dragOff() {
-			  flag = false; 
+			  flag = false;
 			  //document.images[imgName].style.top = Math.round(img.height / 2) - y;
 			  //document.images[imgName].style.left = Math.round(img.width / 2) - x;
 			  document.images[imgName].style.top = h + h2 - r1;
@@ -98,15 +97,15 @@
 				document.images[imgName].style.top = event.y - y;
 				document.images[imgName].style.left = event.x - x;
 				//console.log("x="+ (event.x-x));
-				//console.log("y="+ (event.y-y)); 	
+				//console.log("y="+ (event.y-y));
 			  }
 			  else{
-			  	
+
 			  	console.log(sita/Math.PI*180);
 			  	//console.log("sin="+Math.sin(sita)*160);
 			  	//console.log("cos="+Math.cos(sita)*160);
 			  	//console.log("x="+ (event.x-x));
-				//console.log("y="+ (event.y-y)); 
+				//console.log("y="+ (event.y-y));
 			  	document.images[imgName].style.top = Math.sin(sita)*r3 - y + h + h2;
 				document.images[imgName].style.left = Math.cos(sita)*r3 - x + w;
 			  }
@@ -145,6 +144,56 @@
 				e.preventDefault();
 				thisX = event.changedTouches[0].pageX;
 				thisY = event.changedTouches[0].pageY;
+
+//ここから
+				var sita = Math.atan2(thisY - h - h2, thisX - w);
+                var sita0 = sita/Math.PI*180;
+				var r = Math.pow(thisX - w,2)+ Math.pow(thisY - h - h2,2); //中心から座標の距離^2
+			  if(thisY < h + h2 +r2 && thisY > h + h2 -r2 && thisX > w-r2 && thisX < w+r2 && r <= r3*r3) {
+					$(this).css({left:thisX-x, top:thisY-y});
+				} else {
+					//console.log(sita/Math.PI*180);
+					$(this).css({left:Math.cos(sita)*r3 - x + w, top:Math.sin(sita)*r3 - y + h + h2});
+				}
+			  //デューティー比
+                socket.emit("dutyrate", Math.round(Math.min(Math.sqrt(r) / r2 * 255, 255)) + '');
+				//前進・後退
+				if(sita0 == 0 || sita0 == -180){
+					//console.log("error");
+                    socket.emit('moter', "s");
+				} else if(sita0 < 0) {
+                    //console.log("forward");
+					socket.emit('moter',"f");
+				} else {
+                    //console.log("back");
+					socket.emit('moter',"b");
+				}
+
+				//傾き
+				if(sita0 < 90 && sita0 >= -90) {
+                    //console.log(sita0);
+					//console.log("right"); //右回り
+					if(sita0 >= 45 || sita0 <= -45) {
+						//console.log(180 - Math.abs(sita0));
+                        socket.emit('angle', Math.round(180 - Math.abs(sita0)) + 300 + '');
+					} else {
+						//console.log(135);
+                        socket.emit('angle', 135 + 300 + '');
+					}
+				} else {
+					//console.log("left"); //左回り
+					if((sita0 > 0 && sita0 <= 135) || (sita0 < 0 && sita0 >= -135)) {
+						//console.log(180 - Math.abs(sita0));
+                        socket.emit('angle', Math.round(180 - Math.abs(sita0)) + 300 + '');
+					} else {
+						//console.log(45);
+                        socket.emit('angle', 45 + 300 + '');
+					}
+				}
+				return false;
+			});
+
+/*
 				var sita = Math.atan2(thisY - h - h2, thisX - w);
 				var r = Math.pow(thisX - w,2)+ Math.pow(thisY - h - h2,2); //中心から座標の距離^2
 				if(sita > 0) {
@@ -160,10 +209,19 @@
 				}
 				return false;
 			});
+
+*/
 			$("#cont").on("touchend", function(e) { //dragOffの代わり
+				if(!flag) return;
+				e.preventDefault();
 				$(this).css({left:w-r1, top:h+h2-r1});
+				socket.emit('angle', 90 + 300 +'');
+        socket.emit('moter', "s");
+				flag = false;
+/*
 				flag = false;
 				console.log("ccc");
+*/
 			});
 		</script>
 	</body>
