@@ -26,8 +26,16 @@ TCP_client.connect(TCP_PORT, TCP_HOST, function() {
 });
 
 io.on('connection', function(client){
-	client.on('message', function(data) {
-		console.log(data);
-		TCP_client.write(data);
-	});
+    client.on('dutyrate', function(data) {
+	//console.log(data);
+	TCP_client.write(data + '\n');
+    });
+    client.on('moter', function(data) {
+        console.log(data);
+        TCP_client.write(data + '\n');
+    });	
+    client.on('angle', function(data) {
+        //console.log(data);
+        TCP_client.write(data + '\n');
+    });	
 });

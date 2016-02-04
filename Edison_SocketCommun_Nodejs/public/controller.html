@@ -46,7 +46,6 @@
 			//console.log(img.width);
 			//console.log(img.height);
 			var socket = io.connect(location.origin);
-
 			function dragOn(n) {
 			  flag = true; 
 			  imgName = n;
@@ -108,7 +107,6 @@
 			$("#cont").on("touchstart", function(e) { //dragOnの代わり
 				e.preventDefault();
 				flag = true;
-				console.log("aaa");
 			});
 			$("#cont").on("touchmove", function(e) { //dragImgの代わり
 				if(!flag) {
@@ -118,24 +116,57 @@
 				thisX = event.changedTouches[0].pageX;
 				thisY = event.changedTouches[0].pageY;
 				var sita = Math.atan2(thisY - h - h2, thisX - w);
+                var sita0 = sita/Math.PI*180;
 				var r = Math.pow(thisX - w,2)+ Math.pow(thisY - h - h2,2); //中心から座標の距離^2
-				if(sita > 0) {
-					mFlag = -1;
-				} else {
-					mFlag = 1;
-				}
-				if(thisY < h + h2 +r2 && thisY > h + h2 -r2 && thisX > w-r2 && thisX < w+r2 && r <= r3*r3) {
+
+			  if(thisY < h + h2 +r2 && thisY > h + h2 -r2 && thisX > w-r2 && thisX < w+r2 && r <= r3*r3) {
 					$(this).css({left:thisX-x, top:thisY-y});
 				} else {
-					console.log(sita/Math.PI*180);
+					//console.log(sita/Math.PI*180);
 					$(this).css({left:Math.cos(sita)*r3 - x + w, top:Math.sin(sita)*r3 - y + h + h2});
+				}
+			  //デューティー比
+                socket.emit("dutyrate", Math.round(Math.min(Math.sqrt(r) / r2 * 255, 255)) + '');        
+				//前進・後退
+				if(sita0 == 0 || sita0 == -180){
+					//console.log("error");
+                    socket.emit('moter', "s");
+				} else if(sita0 < 0) {
+                    //console.log("forward");
+					socket.emit('moter',"f");
+				} else {
+                    //console.log("back");
+					socket.emit('moter',"b");
+				}
+
+				//傾き
+				if(sita0 < 90 && sita0 >= -90) {
+                    //console.log(sita0);
+					//console.log("right"); //右回り
+					if(sita0 >= 45 || sita0 <= -45) {
+						//console.log(180 - Math.abs(sita0));
+                        socket.emit('angle', Math.round(180 - Math.abs(sita0)) + 300 + '');
+					} else {
+						//console.log(135);
+                        socket.emit('angle', 135 + 300 + '');
+					}
+				} else {
+					//console.log("left"); //左回り
+					if((sita0 > 0 && sita0 <= 135) || (sita0 < 0 && sita0 >= -135)) {
+						//console.log(180 - Math.abs(sita0));
+                        socket.emit('angle', Math.round(180 - Math.abs(sita0)) + 300 + '');
+					} else {
+						//console.log(45);
+                        socket.emit('angle', 45 + 300 + '');
+					}
 				}
 				return false;
 			});
 			$("#cont").on("touchend", function(e) { //dragOffの代わり
 				$(this).css({left:w-r1, top:h+h2-r1});
+				socket.emit('angle', 90 + 300 +'');
+                socket.emit('motor', "s");
 				flag = false;
-				console.log("ccc");
 			});
 		</script>
 	</body>
