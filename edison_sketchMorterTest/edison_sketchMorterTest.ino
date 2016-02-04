@@ -2,7 +2,6 @@
 #include <Servo.h>
 
 WiFiServer server(3000);
-//char c = '0';
 char c = '0';
 
 // Use a Servo object to represent and control the servo.
@@ -26,7 +25,6 @@ void setup() {
   server.begin();
   Serial.print("Connected to TCP. My address:");
   IPAddress myAddress(127,0,0,1);
-  //IPAddress myAddress(192,168,11,24);
   Serial.println(myAddress);
   groveServo.write(120);
   
