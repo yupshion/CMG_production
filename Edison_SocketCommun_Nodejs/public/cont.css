@@ -8,11 +8,14 @@ body, html {
 	text-align: center;
 }
 .tostart {
-	height: 10%;
+	width: 50%;
 }
 .toconfig {
-	height: 10%;
+	width: 40%;
 	float: right;
+}
+#controller {
+	height: 50%;
 }
 .hani {
 	position: absolute;
@@ -25,35 +28,23 @@ body, html {
 	top: 50%;
 }
 
-@media screen and (max-height: 500px) and (orientation: landscape) {
-	body, html {
-		
-	}
-
-	.hani {
-
-	}
-	.cont {
-
-	}
-}
-@media screen and (max-width: 500px) {
-	body, html {
-		
+@media screen and (min-width: 601px) {
+	#camera {
+		height: 45%;
+		text-align: center;
 	}
 	.tostart {
+		width: auto;
 		height: 10%;
-		width: 50%;
 	}
 	.toconfig {
+		width: auto;
 		height: 10%;
-		width: 45%;
 		float: right;
 	}
-	.hani {
-
-	}
-	.cont {
-		
+	#to:after {
+		content: "";
+		display: block;
+		clear: both;
 	}
 }

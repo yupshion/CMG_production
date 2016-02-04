@@ -1,0 +1,23 @@
+html {
+	background-image: url("img/bg.png");
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+body {
+	margin: 0;
+	padding: 0;
+}
+
+.config {
+	height: 100px;
+}
+.tostart {
+	float: left;
+	height: 70px;
+}
+.tostart:after {
+	content: "";
+	display: block;
+	clear: both;
+}

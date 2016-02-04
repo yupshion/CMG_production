@@ -1,21 +1,144 @@
 html {
 	background-image: url("img/bg.png");
 	text-align: center;
-	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+body {
+	margin: 0;
+	padding: 0;
+	margin-top: 10%;
+	width: 100%;
+	height: calc(100% - 10%);
 }
 
 #logo {
-	background-color: rgba(51,51,85,0.8);
+	background-color: rgba(51,51,85,0.5);
+	height: 30%;
 }
-#disp {
-	float: right;
-	padding-right: 10%;
-}
-.logo, .how, .start {
-	width: 80%;
-	margin-top: 1em;
+#logo:after {
+	content: "";
+	display: block;
+	clear: both;
 }
 #disp {
 	color: #fff;
-	font-size: 2.5em;
+	font-size: 2em;
+	float: right;
+	margin-right: 1em;
+	margin-bottom: .1em;
+}
+.edisonnumber {
+	float: left;
+	margin-right: 2em;
+	margin-left: 5%;
+	width: 40%;
+}
+.logo {
+	width: 60%;
+	margin-top: 1em;
+}
+#middle {
+	height: 35%;
+}
+.how {
+	width: 60%;
+	margin-top: .5em;
+}
+.start {
+	width: 60%;
+}
+#how img {
+	display: none;
+}
+#back-curtain {
+	background: rgba(0,0,0,0.5);
+	display: none;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+#bottom {
+	height: 35%;
+}
+.config {
+	width: 45%;
+	margin: 0;
+	padding: 0;
+}
+.trial {
+	width: 50%;
+	margin: 2%;
+}
+.line {
+	width: 50%;
+	position: absolute;
+}
+.cont {
+	width: 25%;
+	position: absolute;
+}
+
+@media screen and (min-width: 601px) {
+	body {
+		margin: 0;
+		padding: 0;
+		height: 100%;
+	}
+	.logo {
+		width: auto;
+		height: 70%;
+		margin-top: 5px;
+	}
+	.edisonnumber {
+		margin-left: 15%;
+		margin-right: 0;
+		width: auto;
+		height: 20%;
+	}
+	#disp {
+		font-size: 1.5em;
+		margin-right: 20%;
+	}
+	#middle {
+		height: 25%;
+	}
+	.how {
+		height: 90%;
+		width: auto;
+		margin-top: 1em;
+		float: left;
+		margin-left: 5%;
+	}
+	.start {
+		height: 90%;
+		width: auto;
+		margin-top: 1em;
+		float: right;
+		margin-right: 5%;
+	}
+	#middle:after {
+		content: "";
+		display: block;
+		clear: both;
+	}
+	#bottom {
+		height: 45%;
+	}
+	.config {
+		width: auto;
+		height: 128px;
+		margin: 0;
+		padding: 0;
+	}
+	.trial {
+		width: auto;
+		height: 5%;
+		margin: 2%;
+	}
+}
+
+@media screen and (min-height: 960px) {
+	html {
+	}
 }

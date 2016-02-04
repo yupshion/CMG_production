@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="ja">
+<html>
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
@@ -13,20 +12,59 @@
 		<div id="logo">
 			<img class="logo" src="img/logo.png" alt="Ediconエジコン">
 			<br>
-			<img class="edisonnumber" src="img/Edicon_number.png" alt="Edisonnumber: ">
-			<div id="disp"></div>
-		</div>
-		<img class="how" src="img/howto_play.png" alt="How to Play">
-		<a href="controller.html"><img class="start" src="img/start.png" alt="start"></a>
-		<div id="bottom">
-			<a href="config.html"><img src="img/config.png" alt="config"></a>
-			<div id="trial">
-				<img src="img/otameshi.png" alt="control_trial">
-				<br>
-				<img src="img/line.png" alt="line">
-				<img src="img/cont_img2.png" alt="control">
+			<div id="num">
+				<img class="edisonnumber" src="img/Edicon_number.png" alt="Edisonnumber: ">
+				<div id="disp"></div>
 			</div>
 		</div>
+		<div id="middle">
+			<img class="how" src="img/howto_play.png" alt="How to Play">
+			<a href="controller-0.html"><img class="start" src="img/start.png" alt="start"></a>
+		</div>
+		<div id="bottom">
+			<a href="config.html"><img class="config" name="config" src="img/config.png" alt="config" style="position:absolute"></a>
+			<div id="trial">
+				<img class="trial" src="img/otameshi.png" name="trial" alt="control_trial" style="position:absolute">
+				<div id="cont_trial">
+					<img class="line" src="img/line.png" name="img2" alt="line" style="position:absolute">
+					<img class="cont" src="img/cont_img2.png" name="img1" alt="control" style="position:absolute" onMousedown="dragOn('img1')">
+				</div>
+			</div>
+		</div>
+		<div id="back-curtain"></div>
+		<div id="how"><img src="img/Edicon_index.png" alt="How to Play"></div>
+
+		<!-- 画面の大きさとか要素の位置とか -->
+		<script>
+			var w = window.innerWidth; //ウィンドウ幅
+			var h = window.innerHeight; //ウィンドウ高さ
+
+			//.configの大きさ
+			var config = new Image();
+			config.src = "img/config.png"
+			var configh = Math.round((config.height * w/20 * 9) / config.width);
+
+			//.trialの大きさ
+			var trial = new Image();
+			trial.src = "img/otameshi.png";
+			var trialh = Math.round((trial.height * w/2) / trial.width);
+
+			$("html").css({width:w, height:h});
+			$(function imgPos() {
+				if(w <= 600) {
+					$(".config").css({top:Math.round((h/20 * 13) + trialh + (w/25) + r1 - (configh/2)), left:Math.round(w/40)});
+					$(".trial").css({left:Math.round(w/2 - w/25)});
+					$(".line").css({top:Math.round((h/20 * 13) + trialh + (w/25) + r1 - lh), left:Math.round(l*2 - w/50)});
+					$(".cont").css({top:Math.round((h/20 * 13) + trialh + (w/25)), left:Math.round(l*2 - w/50 + r1)});
+				} else {
+					$(".config").css({top:Math.round((h/20 * 13)), left:Math.round(w/10)});
+					$(".trial").css({left:Math.round(w/10*7 - w/25)});
+					$(".line").css({top:Math.round((h/20 * 11) + w/25 + r1 - lh), left:Math.round(l*2 - w/50)});
+					$(".cont").css({top:Math.round(h/20 * 11 + w/25), left:Math.round(l*2 - w/50 + r1)});
+				}
+			});
+		</script>
+
 		<!-- シリアルナンバー表示 -->
 		<script>
 			var xmlHttp;
@@ -41,8 +79,8 @@
 			    }
 			}
 			xmlHttp.onreadystatechange = checkStatus;
-			//xmlHttp.open("GET", "sn", true);
-			xmlHttp.open("GET", "serial_number", true); //2番目の引数が、シリアルナンバーが書いてあるファイル()
+			xmlHttp.open("GET", "sn", true);
+			//xmlHttp.open("GET", "serial_number", true); //2番目の引数が、シリアルナンバーが書いてあるファイル()
 
 			xmlHttp.send(null);
 
@@ -53,5 +91,146 @@
 			  	}
 			}
 		</script>
+
+		<!-- 遊び方ポップアップ -->
+		<script type="text/javascript">
+			var img_width;
+			var img_height;
+			var img_ratio;
+			 
+			// ウィンドウオープン時
+			jQuery.event.add(window, "load", function(){
+			 
+			    // 元の画像サイズを調べる
+			    var el = $('#how img');
+		        var img = new Image();
+		        img.src = el.attr('src');
+		        img_width = img.width;          // 幅
+		        img_height = img.height;        // 高さ
+			    img_ratio = img_height/img_width;   // 画像の幅高比
+			});
+			 
+			$('.how').click(function(e) {
+			    e.preventDefault();         // 規定のイベントを無効（リンク等）
+			 
+			    disp();                 // 拡大画像表示
+			    $('#how img').fadeIn();        // フェードイン
+			});
+			 
+			// ウィンドウサイズ変更時
+			jQuery.event.add(window, "resize", function(){disp();});    // 拡大画像表示
+			 
+			// 暗幕と拡大画像を非表示
+			$('#back-curtain, #how').click(function() {
+			    $('#how img').fadeOut('slow', function() {$('#back-curtain').hide();});
+			});
+			 
+			// 拡大画像表示サブルーチン
+			function disp(){
+			    $('#back-curtain')
+			        .css({
+			            'width' : $(window).width(),    // ウィンドウ幅
+			            'height': $(window).height(),    // 同 高さ
+			            'top': $(window).scrollTop()
+			        })
+			        .show();
+			 
+			    var win_ratio = $(window).height() / $(window).width(); // ウィンドウの幅高比
+			    var w;  var h;      // 幅、高さ
+			    const margin=50;    // 上下左右の最低マージン
+			 
+			    if(img_ratio > win_ratio ){      // 画像の方がウィンドウより縦長
+			        h= $(window).height(); // 画像の高さ　ウィンドウに合わせる
+			        if( h < $(window).height() ) h=$(window).height();
+			        w=h/img_ratio;
+			    }else{                  //  ウィンドウの方が縦長
+			        w=$(window).width();   // 画像幅　元の画像に合わせる
+			        if( w < $(window).width() ) w=$(window).width();
+			        h=w * img_ratio;
+			    }
+			 
+			    $('#how img').css({
+			        'position': 'absolute',
+			        'left': ($(window).width()-w)/2+'px',
+			        'top' : (($(window).height()-h)/2 + $(window).scrollTop())+'px',
+			        'width' :w+'px',
+			        'height':h+'px'
+			    });
+			     
+			}
+		</script>
+
+		<!-- おためし -->
+		<SCRIPT language="JavaScript">
+			<!--
+			x = 75; // マウスと画像の縦方向の距離
+			y = 75; // マウスと画像の横方向の距離
+			r1 = Math.round(w/8); //cont画像の大きさ/2
+			r2 = Math.round(r1/25 * 17); //cont半径
+			l = Math.round(w/4); //line長さ/2
+			lh = Math.round(l/100*3); //line幅/2
+			lr = Math.round(l - r1);
+			flag = false;
+			window.document.onmousemove = dragImg;
+			window.document.onmouseup = dragOff;
+			var img = new Image();
+			img.src = "img/line.png";
+			img.onload = function (){
+				document.images['img1'].style.top = Math.round(h/20 * 11 + w/25);
+			  	document.images['img1'].style.left = Math.round(l*2 - w/50 + r1);
+			}
+			function dragOn(n) {
+			  flag = true; 
+			  imgName = n;
+			}
+			function dragOff() {
+			  flag = false; 
+			  document.images[imgName].style.left = Math.round(l*2 - w/50 + r1);
+			}
+			function dragImg() {
+			  if(!flag) return;
+			  console.log(Math.round(l*2 - w/50), event.x, Math.round(l*4 - w/50));
+			  if ((event.x > (Math.round(l*2 - w/50)+r2)) && (event.x <= (Math.round(l*4 - w/50)-r2))) {
+				document.images[imgName].style.left = event.x - lr;
+			  } else if (event.x <= Math.round(l*2 - w/50)+r2){			  	
+				document.images[imgName].style.left = Math.round(l*2 - w/50)-r1+r2;
+			  } else {
+			  	document.images[imgName].style.left = Math.round(l*4 - w/50)-r1-r2;
+			  }
+			  return false;
+			}
+			//-->
+		</SCRIPT>
+​
+		<!-- おためしタッチ端末 -->
+		<script>
+			flag = false;
+			$(".cont").on("touchstart", function(e) { //dragOnの代わり
+				e.preventDefault();
+				flag = true;
+			});
+			$(".cont").on("touchmove", function(e) { //dragImgの代わり
+				if(!flag) {
+					return;
+				}
+				e.preventDefault();
+				thisX = event.changedTouches[0].pageX;
+
+				console.log(Math.round(l*2 - w/50), thisX, Math.round(l*4 - w/50));
+				if((thisX > (Math.round(l*2 - w/50)+r2)) && (thisX <= (Math.round(l*4 - w/50)-r2))) {
+					$(this).css({left:thisX-lr});
+				} else if (thisX <= Math.round(l*2 - w/50)+r2){
+					$(this).css({left:Math.round(l*2 - w/50)-r1+r2});
+				} else {
+					$(this).css({left:Math.round(l*4 - w/50)-r1-r2});
+				}
+				return false;
+			});
+			$(".cont").on("touchend", function(e) { //dragOffの代わり
+				$(this).css({top:Math.round((h/20 * 13) + trialh + (w/25)), left:Math.round(l*2 - w/50 + r1)});
+				flag = false;
+			});
+		</script>
+
 	</body>
 </html>

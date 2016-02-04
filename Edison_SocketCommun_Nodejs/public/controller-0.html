@@ -89,25 +89,24 @@
 			}
 			function dragImg() {
 			  if(!flag) return;
-			  var sita = Math.atan2(event.y - h - h2, event.x - w);
-			  var r = Math.pow(event.x - w,2)+ Math.pow(event.y - h - h2,2); //中心から座標の距離^2
-			  if (sita > 0) mFlag = -1;
-			  else mFlag = 1;
+				var sita = Math.atan2(event.y - h - h2, event.x - w);
+				var sita0 = sita/Math.PI*180;
+				var r = Math.pow(event.x - w,2)+ Math.pow(event.y - h - h2,2); //中心から座標の距離^2
 			  if (event.y < h + h2 +r2 && event.y > h + h2 -r2 && event.x > w-r2 && event.x < w+r2 && r < r3*r3){
-				document.images[imgName].style.top = event.y - y;
-				document.images[imgName].style.left = event.x - x;
-				//console.log("x="+ (event.x-x));
-				//console.log("y="+ (event.y-y));
+					document.images[imgName].style.top = event.y - y;
+					document.images[imgName].style.left = event.x - x;
+					//console.log("x="+ (event.x-x));
+					//console.log("y="+ (event.y-y));
 			  }
 			  else{
 
-			  	console.log(sita/Math.PI*180);
+			  	//console.log(sita/Math.PI*180);
 			  	//console.log("sin="+Math.sin(sita)*160);
 			  	//console.log("cos="+Math.cos(sita)*160);
 			  	//console.log("x="+ (event.x-x));
-				//console.log("y="+ (event.y-y));
+					//console.log("y="+ (event.y-y));
 			  	document.images[imgName].style.top = Math.sin(sita)*r3 - y + h + h2;
-				document.images[imgName].style.left = Math.cos(sita)*r3 - x + w;
+					document.images[imgName].style.left = Math.cos(sita)*r3 - x + w;
 			  }
 			  //socket.emit("data", {sita: sita, r : r, mFlag: mFlag});
 			  return false;
@@ -147,7 +146,7 @@
 
 //ここから
 				var sita = Math.atan2(thisY - h - h2, thisX - w);
-                var sita0 = sita/Math.PI*180;
+				var sita0 = sita/Math.PI*180;
 				var r = Math.pow(thisX - w,2)+ Math.pow(thisY - h - h2,2); //中心から座標の距離^2
 			  if(thisY < h + h2 +r2 && thisY > h + h2 -r2 && thisX > w-r2 && thisX < w+r2 && r <= r3*r3) {
 					$(this).css({left:thisX-x, top:thisY-y});
